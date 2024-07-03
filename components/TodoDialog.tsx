@@ -39,8 +39,8 @@ const TodoDialog = ({ todo, operation, userId }: IProps) => {
   const [open, setOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const defaultValues: Partial<TTodoFormValues> = {
-    title: todo?.title as string,
-    body: todo?.body as string,
+    title: todo?.title as string || "",
+    body: todo?.body as string || "",
     completed: todo?.completed
   }
 
@@ -57,10 +57,13 @@ const TodoDialog = ({ todo, operation, userId }: IProps) => {
       await createTodoAction({ title, body, completed: completed as boolean, userId })
       setIsLoading(false)
       setOpen(false)
+      form.reset()
+
     } else {
       await updateTodoAction({ id: todo?.id, title, body, completed: completed as boolean })
       setIsLoading(false)
       setOpen(false)
+      form.reset()
     }
 
   }
